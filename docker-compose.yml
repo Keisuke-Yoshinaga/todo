@@ -1,0 +1,25 @@
+# docker-composeのバージョン選択
+version: "3"
+services:
+  # サービス名
+  frontend:
+    # Dockerfileの設定
+    build:
+      # Dockerfileを置いているディレクトリ
+      context: .
+      # Dockerfileのファイル名
+      dockerfile: Dockerfile
+    # 作業ディレクトリ
+    working_dir: /app
+    volumes:
+      - ./:/app:cached
+    # コンテナを正常終了するのを防ぐ
+    # https://zenn.dev/hohner/articles/43a0da20181d34
+    tty: true
+    # 公開用のポート指定。ホスト側:コンテナ側
+    ports:
+      - "5174:5173"
+    command: yarn dev --host # viteの実行コマンド
+volumes:
+  # ホスト側のnode_modulesをコンテナ側にマウントする
+  node_modules:
