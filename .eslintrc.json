@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "tailwindcss": {
+      "config": "./tailwind.config.js"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "plugins": ["tailwindcss"]
+}
