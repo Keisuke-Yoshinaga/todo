@@ -16,13 +16,15 @@ services:
       - CHOKIDAR_USEPOLLING=true # ホットリロードを可能にする
     volumes:
       - ./:/app:cached
+      # コンテナ内のnode_modulesを指定
+      - /app/node_modules
     # コンテナを正常終了するのを防ぐ
     # https://zenn.dev/hohner/articles/43a0da20181d34
     tty: true
     # 公開用のポート指定。ホスト側:コンテナ側
     ports:
       - '5174:5173'
-    command: yarn dev --host # viteの実行コマンド
+    command: yarn dev # viteの実行コマンド
 volumes:
   # ホスト側のnode_modulesをコンテナ側にマウントする
   node_modules:

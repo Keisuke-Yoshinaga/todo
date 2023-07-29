@@ -1,6 +1,9 @@
 # node
 FROM node:20-slim
 
+ENV LANG=C.UTF-8 \
+  TZ=Asia/Tokyo
+
 # 作業ディレクトリ
 WORKDIR /app
 
