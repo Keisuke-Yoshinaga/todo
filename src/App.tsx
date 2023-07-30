@@ -68,6 +68,7 @@ function App() {
           <input
             type="text"
             onChange={(e) => handleChange(e.currentTarget.value)}
+            value={inputValue}
           />
           <input type="submit" value="追加" />
         </form>
@@ -75,11 +76,22 @@ function App() {
           {todos.map((todo) => (
             <div key={todo.id}>
               <input type="checkbox" onChange={() => handleChecked(todo.id)} />
-              <input
-                type="text"
-                onChange={(e) => handleEdit(todo.id, e.currentTarget.value)}
-                value={todo.inputValue}
-              />
+              {(() => {
+                if (todo.checked) {
+                  return <del>{todo.inputValue}</del>;
+                } else {
+                  return (
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        handleEdit(todo.id, e.currentTarget.value)
+                      }
+                      value={todo.inputValue}
+                      disabled={todo.checked}
+                    />
+                  );
+                }
+              })()}
               <button onClick={() => handleDelete(todo.id)}>削除</button>
             </div>
           ))}
