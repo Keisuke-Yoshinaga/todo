@@ -1,33 +1,90 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { FormEvent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  // Todo型の定義
+  type Todo = {
+    inputValue: string;
+    id: string;
+    checked: boolean;
+  };
+
+  // 入力値を取得
+  const handleChange = (value: string) => {
+    setInputValue(value);
+  };
+
+  // フォームを送信した時の処理
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // 新しいtodoを作成
+    const newTodo: Todo = {
+      inputValue: inputValue,
+      id: uuidv4(),
+      checked: false,
+    };
+
+    setTodos([newTodo, ...todos]);
+    setInputValue('');
+  };
+
+  // 編集時の処理
+  const handleEdit = (id: string, inputValue: string) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.inputValue = inputValue;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
+  // チェックボックスの処理
+  const handleChecked = (id: string) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.checked = !todo.checked;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
+  // 削除ボタンの処理
+  const handleDelete = (id: string) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h2>Todoリスト</h2>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <input
+            type="text"
+            onChange={(e) => handleChange(e.currentTarget.value)}
+          />
+          <input type="submit" value="追加" />
+        </form>
+        <ul>
+          {todos.map((todo) => (
+            <div key={todo.id}>
+              <input type="checkbox" onChange={() => handleChecked(todo.id)} />
+              <input
+                type="text"
+                onChange={(e) => handleEdit(todo.id, e.currentTarget.value)}
+                value={todo.inputValue}
+              />
+              <button onClick={() => handleDelete(todo.id)}>削除</button>
+            </div>
+          ))}
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
