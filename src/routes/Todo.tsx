@@ -61,43 +61,63 @@ const Todo: React.FunctionComponent = () => {
   };
 
   return (
-    <>
-      <div>
-        <h2>Todoリスト</h2>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input
-            type="text"
-            onChange={(e) => handleChange(e.currentTarget.value)}
-            value={inputValue}
-          />
-          <input type="submit" value="追加" />
-        </form>
-        <ul>
-          {todos.map((todo) => (
-            <div key={todo.id}>
-              <input type="checkbox" onChange={() => handleChecked(todo.id)} />
-              {(() => {
-                if (todo.checked) {
-                  return <del>{todo.inputValue}</del>;
-                } else {
-                  return (
-                    <input
-                      type="text"
-                      onChange={(e) =>
-                        handleEdit(todo.id, e.currentTarget.value)
-                      }
-                      value={todo.inputValue}
-                      disabled={todo.checked}
-                    />
-                  );
-                }
-              })()}
-              <button onClick={() => handleDelete(todo.id)}>削除</button>
-            </div>
-          ))}
-        </ul>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-200 py-2">
+      <h1 className="-mt-32 text-4xl font-bold text-gray-700">Todoリスト</h1>
+      <div className="mt-5 w-full max-w-xl">
+        <div className="w-full rounded-lg bg-white px-8 py-6 shadow-md">
+          <form className="mb-4 space-y-3" onSubmit={(e) => handleSubmit(e)}>
+            <input
+              type="text"
+              className="w-full rounded-lg border px-4 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-200"
+              onChange={(e) => handleChange(e.currentTarget.value)}
+              value={inputValue}
+            />
+            <button className="w-full rounded bg-blue-500 px-4 py-2 text-white">
+              Add Task
+            </button>
+          </form>
+          <ul className="space-y-3">
+            {todos.map((todo) => (
+              <div
+                className="flex rounded border-l-4 border-blue-500 bg-white p-4 shadow"
+                key={todo.id}
+              >
+                <input
+                  type="checkbox"
+                  className=""
+                  onChange={() => handleChecked(todo.id)}
+                />
+                {(() => {
+                  if (todo.checked) {
+                    return (
+                      <del className="mx-4 px-2 py-1">{todo.inputValue}</del>
+                    );
+                  } else {
+                    return (
+                      <input
+                        type="text"
+                        className="mx-4 w-full rounded-lg px-2 py-1 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-200"
+                        onChange={(e) =>
+                          handleEdit(todo.id, e.currentTarget.value)
+                        }
+                        value={todo.inputValue}
+                        disabled={todo.checked}
+                      />
+                    );
+                  }
+                })()}
+                <button
+                  className="ml-auto whitespace-nowrap text-red-500"
+                  onClick={() => handleDelete(todo.id)}
+                >
+                  削除
+                </button>
+              </div>
+            ))}
+          </ul>
+        </div>
       </div>
-    </>
+    </main>
   );
 };
 
