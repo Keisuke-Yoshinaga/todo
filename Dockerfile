@@ -11,8 +11,7 @@ COPY package*.json .
 COPY yarn.lock .
 
 # パッケージ一覧(インデックス)を更新
-RUN apt update \
-  && yarn install
+RUN yarn install && yarn cache clean --force
 
 COPY . .
 
