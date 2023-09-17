@@ -4,6 +4,6 @@
 
 ```sh
 % git clone https://github.com/Keisuke-Yoshinaga/react.git
-% cd react
+% cd todo
 % docker-compose up
 ```
