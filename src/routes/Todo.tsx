@@ -1,7 +1,7 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
-import InputTask from '../components/InputTask';
-import ShowTaskList from '../components/ShowTaskList';
+import InputTask from '../features/Todo/components/InputTask';
+import ShowTaskList from '../features/Todo/components/ShowTaskList';
 
 const Todo: React.FunctionComponent = () => {
   return (

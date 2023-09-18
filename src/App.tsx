@@ -1,10 +1,26 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import Top from './routes/Top.tsx';
+import Todo from './routes/Todo.tsx';
 
 const App: FC = () => {
   return (
     <div>
-      <Link to="/todo">Todo</Link>
+      <Routes>
+        {/* path URL */}
+        <Route path="/" element={<Top />} />
+        <Route path="/todo" element={<Todo />} />
+
+        {/* 上記のパスに当てはまらない場合 */}
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: '1rem' }}>
+              <p>nothing here!</p>
+            </main>
+          }
+        />
+      </Routes>
     </div>
   );
 };
