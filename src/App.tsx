@@ -2,10 +2,12 @@ import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Top from './routes/Top.tsx';
 import Todo from './routes/Todo.tsx';
+import Navbar from './components/Navbar.tsx';
 
 const App: FC = () => {
   return (
     <div>
+      <Navbar />
       <Routes>
         {/* path URL */}
         <Route path="/" element={<Top />} />

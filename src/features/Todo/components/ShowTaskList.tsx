@@ -38,7 +38,9 @@ const showTaskList = () => {
       <ul className="space-y-3">
         {taskList.map((task) => (
           <li
-            className="mt-4 flex w-full rounded-lg border-l-4 border-blue-500 bg-white p-4 px-8 py-6 shadow-md"
+            className={`mt-4 flex w-full rounded-lg border-l-8 ${
+              task.checked ? `border-green-500` : `border-blue-500`
+            } bg-white px-8 py-3 shadow-md`}
             key={task.id}
           >
             <input
@@ -48,7 +50,11 @@ const showTaskList = () => {
             />
             {(() => {
               if (task.checked) {
-                return <del className="mx-4 px-2 py-1">{task.inputValue}</del>;
+                return (
+                  <div className="mx-4 px-2 py-1 line-through">
+                    {task.inputValue}
+                  </div>
+                );
               } else {
                 return (
                   <input
@@ -65,7 +71,7 @@ const showTaskList = () => {
               className="ml-auto whitespace-nowrap text-red-500"
               onClick={() => handleDelete(task.id)}
             >
-              削除
+              Delete
             </button>
           </li>
         ))}
